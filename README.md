@@ -75,8 +75,8 @@ members: [
 { _id: 1, host: "PRIVATE_IP_1:27017" },
 { _id: 2, host: "PRIVATE_IP_2:27017" } 
 
-    ]
-})
+  ]
+ })
 
 Then Check status:
 
@@ -92,7 +92,7 @@ terraform validate
 
        terraform plan
 
-  4.  Deploy
+4.  Deploy
        terraform apply
 
 🔐 Security Notes
