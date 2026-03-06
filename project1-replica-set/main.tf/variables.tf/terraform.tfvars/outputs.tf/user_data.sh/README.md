@@ -14,7 +14,10 @@ Components deployed: • VPC (10.0.0.0/16) • 3 private subnets (one per AZ) �
 
   # Replica Set Topology
 
-# rs0 ─ MongoDB-Server-0 (us-east-1a) ─ MongoDB-Server-1 (us-east-1b) ─ MongoDB-Server-2 (us-east-1c)
+# rs0
+─ MongoDB-Server-0 (us-east-1a) 
+─ MongoDB-Server-1 (us-east-1b)
+─ MongoDB-Server-2 (us-east-1c)
 
  # Project Structure
 
@@ -37,8 +40,8 @@ Terraform provisions AWS infrastructure Running creates:
 
 # EC2 installs MongoDB automatically installs MongoDB 6.0 and configures:
 
-replication: replSetName: 
-      "rs0" net: bindIp: 0.0.0.0
+replication: replSetName: "rs0" 
+     net: bindIp: 0.0.0.0
 
 # we initialize the replica set manually
       SSH into MongoDB-Server-0:
