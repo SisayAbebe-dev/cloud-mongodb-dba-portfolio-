@@ -46,7 +46,8 @@ replication: replSetName: "rs0"
 # we initialize the replica set manually
       SSH into MongoDB-Server-0:
 
-# We can login by saying mongo (mongosh)
+# We can login by saying 
+    mongo (mongosh)
 
 Then run:
 
