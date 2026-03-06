@@ -1,7 +1,0 @@
-
-main.tf
-variables.tf
-terraform.tfvars
-outputs.tf
-user_data.sh
-README.md
