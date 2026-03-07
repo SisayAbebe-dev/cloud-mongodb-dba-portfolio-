@@ -1,9 +1,9 @@
 
-# MongoDB Backup & Recovery on AWS (Project 2)
+# MongoDB Backup & Recovery on AWS (Terraform)
 
-This project is part of my Cloud + MongoDB DBA portfolio.
-Here I built a fully automated MongoDB backup and recovery system using AWS and Terraform.
-The setup uses:
+This project is part of my Cloud + MongoDB DBA focused on building production‑ready infrastructure and automation workflows using AWS, Terraform, and MongoDB. Here I implemented a cost‑efficient backup and recovery architecture that automates nightly MongoDB backups to S3 using IAM roles, cron scheduling, and a dedicated EC2 backup server.
+
+# The setup uses:
 • 	1 EC2 backup server (cost‑optimized)
 • 	S3 bucket for storing backups
 • 	IAM role + policy for secure uploads
@@ -65,15 +65,15 @@ The EC2 instance automatically:
 #  Deployment
 
 Initialize Terraform:
-  terraform init
+   terraform init
 
 
 Preview changes:
-  terraform plan
+   terraform plan
 
 
 Then deploy:
-  terraform apply
+   terraform apply
   
 # How I Restore a Backup
 After the backup server is deployed  I restored the latest backup from S3 by connecting to the EC2 instance and running the restore script manually.
@@ -82,11 +82,10 @@ After the backup server is deployed  I restored the latest backup from S3 by con
 ssh -i my-key.pem ubuntu@<my EC2-IP***>
 
 
-2. Upload the restore script
+# 2. Upload the restore script
 scp -i my-key.pem restore.sh ubuntu@<my EC2-IP***>:/home/ubuntu/
 
-
-3. Run the restore script
+# 3. Run the restore script
 chmod +x restore.sh
 ./restore.sh
 
