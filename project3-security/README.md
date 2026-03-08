@@ -35,7 +35,7 @@
 
 Before applying, I ran:
 
-📸 Screenshot here, 
+<img width="1809" height="1017" alt="Image" src="https://github.com/user-attachments/assets/c7c46bba-1a31-49fd-8842-6de590b7d442" />
 
 ## Step 2 — Terraform Apply
 
