@@ -111,7 +111,7 @@ mongo -u admin -p StrongPassword123! --authenticationDatabase admin
 
 
 **📸 Screenshot #8: Successful Authenticated Login**  
-*(insert screenshot here)*
+*(insert screenshot here)*x
 
 
 
