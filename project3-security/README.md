@@ -31,13 +31,13 @@
 ── user_data_node3.sh 
 ── README.md
 
-## Step 1 — Terraform Plan
+##  1 — Terraform Plan
 
 Before applying, I ran:
 
 <img width="1809" height="1017" alt="Image" src="https://github.com/user-attachments/assets/c7c46bba-1a31-49fd-8842-6de590b7d442" />
 
-## Step 2 — Terraform Apply
+## 2 — Terraform Apply
 
 I deployed the full infrastructure:
 
@@ -54,21 +54,21 @@ Terraform created:
 <img width="1815" height="990" alt="Image" src="https://github.com/user-attachments/assets/53df4393-d661-4317-a4d9-8d58b77b84d3" />
 
 
-## Step 3 — EC2 Instances Running
+## 3 — EC2 Instances Running
 
 After deployment, all 3 MongoDB nodes appeared in the EC2 dashboard.
 
-**📸 Screenshot
+<img width="1845" height="865" alt="Image" src="https://github.com/user-attachments/assets/76cf218c-b4ff-4665-831d-748560d0cfd5" />
 
 
-##  Step 4 — Subnet Verification
+##  4 — Subnet Verification
 
 The public subnet (10.0.1.0/24) was created successfully.
 
 **📸 Screenshot 
 
 
-## Step 5 — SSH into Node 1
+##  5 — SSH into Node 1
 
 I connected to the primary node:
 
