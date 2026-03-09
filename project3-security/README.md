@@ -65,7 +65,7 @@ After deployment, all 3 MongoDB nodes appeared in the EC2 dashboard.
 
 The public subnet (10.0.1.0/24) was created successfully.
 
-**📸 Screenshot 
+<img width="1867" height="852" alt="Image" src="https://github.com/user-attachments/assets/1ee4523d-962b-4a53-ab6b-c43e4424a213" /> 
 
 
 ##  5 — SSH into Node 1
