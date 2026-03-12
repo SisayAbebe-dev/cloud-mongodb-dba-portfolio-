@@ -1,4 +1,3 @@
-
 provider "aws" {
   region = "us-east-1"
 }
@@ -55,12 +54,12 @@ resource "aws_security_group" "mongo_sg" {
   name   = "mongo-sg"
   vpc_id = aws_vpc.project_vpc.id
 
-  # SSH from your IP
+  # SSH from my IP
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["71.191.131.44/32"]
+    cidr_blocks = [var.my_ip]
   }
 
   # MongoDB internal communication
@@ -86,9 +85,10 @@ resource "aws_security_group" "mongo_sg" {
 
 resource "aws_instance" "mongo_nodes" {
   count         = 3
-  ami           = "ami-0f3caa1cf4417e51b" # Ubuntu 22.04
-  instance_type = "t2.nano"
-  key_name      = "mongodb project key p"
+  ami           = "ami-0b6c6ebed2801a5cb" # Ubuntu 22.04
+  instance_type = "t2.micro"
+  key_name      = var.key_name
+
 
   subnet_id = aws_subnet.public_subnet.id
 
