@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Update system
@@ -20,7 +19,7 @@ apt-get install -y mongodb-org
 
 # Create keyfile directory
 mkdir -p /etc/mongo
-cp /home/ubuntu/keyfile /etc/mongo/keyfile
+echo "MySecretClusterKey123" > /etc/mongo/keyfile
 chmod 600 /etc/mongo/keyfile
 chown mongodb:mongodb /etc/mongo/keyfile
 
@@ -51,12 +50,9 @@ systemctl start mongod
 sleep 20
 
 # Initiate replica set
-mongo --eval '
-rs.initiate({
+mongosh --eval 'rs.initiate({
   _id: "rs0",
-  members: [
-    { _id: 0, host: "MongoDB-Node-1:27017" }
-  ]
-});
-'
+  members: [{ _id: 0, host: "localhost:27017" }]
+});'
+
 
