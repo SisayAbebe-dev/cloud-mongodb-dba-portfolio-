@@ -19,7 +19,7 @@ apt-get install -y mongodb-org
 
 # Create keyfile directory
 mkdir -p /etc/mongo
-cp /home/ubuntu/keyfile /etc/mongo/keyfile
+echo "MySecretClusterKey123" > /etc/mongo/keyfile
 chmod 600 /etc/mongo/keyfile
 chown mongodb:mongodb /etc/mongo/keyfile
 
