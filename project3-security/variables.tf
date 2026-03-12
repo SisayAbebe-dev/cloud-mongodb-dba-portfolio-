@@ -1,4 +1,3 @@
-
 variable "region" {
   description = "AWS region"
   type        = string
@@ -8,21 +7,23 @@ variable "region" {
 variable "instance_type" {
   description = "EC2 instance type for MongoDB nodes"
   type        = string
-  default     = "t2.nano"
+  default     = "t2.micro"
 }
 
 variable "key_name" {
-  description = "SSH key pair name"
+  description = "my existing AWS Key Pair"
   type        = string
+  default     = "sisay-keypair"
 }
 
 variable "my_ip" {
-  description = "Your public IPv4 address with /32"
+  description = "my local IP for SSH access"
   type        = string
+default     = "771.191.131.44/32"
 }
 
 variable "ami_id" {
   description = "Ubuntu AMI ID"
   type        = string
-  default     = "ami-0f3caa1cf4417e51b"
-}
+  default     = "ami-0b6c6ebed2801a5cb"
+}}
