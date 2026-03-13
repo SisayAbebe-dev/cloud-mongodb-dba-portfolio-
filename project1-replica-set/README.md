@@ -25,6 +25,21 @@ This is the foundation for all future projects in the portfolio.
 • 	SSH from your IP
 • 	MongoDB traffic inside the VPC
 
+# Deployment Instructions
+
+1. Initialize Terraform
+     terraform init
+
+2. Validate configuration
+     terraform validate
+
+3. Preview changes
+     terraform plan
+
+4.Deploy
+     terraform apply
+
+
 # Replica Set Topology   
 
 # rs0
@@ -83,19 +98,13 @@ members: [
 
 rs.status()
 
-# Deployment Instructions
+### The Replication Test
 
-1. Initialize Terraform
-     terraform init
+If you haven't already, do a quick "sanity check" to ensure data is actually moving:
 
-2. Validate configuration
-     terraform validate
-
-3. Preview changes
-     terraform plan
-
-4.Deploy
-     terraform apply
+- **On Node 1 (Primary):** `db.test.insert({ project: "Complete" })`
+- **On Node 2 (Secondary):** Run `db.getMongo().setReadPref("secondary")` and then `db.test.find()`.
+- If you see the document, your replication logic is 100% perfect.
 
 🔐 Security Notes
 
