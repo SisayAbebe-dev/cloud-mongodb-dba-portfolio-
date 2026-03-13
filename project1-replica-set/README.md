@@ -64,9 +64,10 @@ bindIp: 0.0.0.0
 
     SSH into **MongoDB-Server-0**:
 
-  # We can login by saying  **mongo**  (mongosh)  
+  # We can login by saying  
+  mongo  (mongosh)  
 
-Then run:
+# Then run:
 
 rs.initiate({
 _id: "rs0",
