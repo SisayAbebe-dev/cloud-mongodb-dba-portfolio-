@@ -92,33 +92,34 @@ showing PRIMARY
 <img width="1882" height="997" alt="image" src="https://github.com/user-attachments/assets/81301c70-8e94-4131-8c4c-86b8a38889a2" />
 
 
+# I created Admin User from Node 1
+
+use admin db.createUser({ user: "admin", pwd: "StrongPassword123!", roles: [ { role: "root", db: "admin" } ] })
+
+<img width="1875" height="995" alt="image" src="https://github.com/user-attachments/assets/e4b290ee-6eed-43b2-9ebe-e5f67c8a9a8f" />
+
+Then exit shell
+# Testing Authentication login back by user
+
+mongosh -u admin -p Mypassword! --authenticationDatabase admin
+
+
+
+# Then
 ## I Added Node 2 and Node 3 to Replica Set From Node 1:
 
-rs.add("MongoDB-Node-2:27017") 
-rs.add("MongoDB-Node-3:27017")
+rs.add("My private ip node2 :27017") 
+rs.add("My private ip node3:27017")
 
 
 # Then:
 rs.status()
 
-**📸 Screenshot #6: Final Replica Set Status (PRIMARY + 2 SECONDARIES)**  
-*(insert screenshot here)*
-
-# I created Admin User from Node 1
-
-use admin db.createUser({ user: "admin", pwd: "StrongPassword123!", roles: [ { role: "root", db: "admin" } ] })
+<img width="1881" height="946" alt="image" src="https://github.com/user-attachments/assets/484fa2d6-435e-4f84-be34-263b5afe3b98" />
 
 
-**📸 Screenshot #7: Admin User Creation**  
-*(insert screenshot here)*
-
-# Testing Authentication
-
-mongo -u admin -p StrongPassword123! --authenticationDatabase admin
 
 
-**📸 Screenshot #8: Successful Authenticated Login**  
-*(insert screenshot here)*x
 
 
 
