@@ -51,7 +51,7 @@ Terraform created:
 - Uploaded keyfile  
 - Ran user_data scripts  
 
-<img width="1815" height="990" alt="Image" src="https://github.com/user-attachments/assets/53df4393-d661-4317-a4d9-8d58b77b84d3" />
+<img width="1886" height="995" alt="image" src="https://github.com/user-attachments/assets/3b1fe57a-ad76-482d-a6e2-bed3181121e7" />
 
 
 ## 3 — EC2 Instances Running
