@@ -94,6 +94,8 @@ members: [
     ]
 })
 
+Note: i used Private IPs instead of localhost to allow cross-node communication within the VPC.
+
 # Then Check status:
 
 rs.status()
