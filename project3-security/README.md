@@ -35,7 +35,8 @@
 
 Before applying, I ran a plan to preview the infrastructure changes and ensure all 9 resources were correctly defined.
 
-<img width="1809" height="1017" alt="Image" src="https://github.com/user-attachments/assets/c7c46bba-1a31-49fd-8842-6de590b7d442" />
+<img width="1808" height="949" alt="image" src="https://github.com/user-attachments/assets/29326c64-6439-420e-95fb-88efd180fca2" />
+
 
 ## 2 — Terraform Apply
 
