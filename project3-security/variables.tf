@@ -13,13 +13,13 @@ variable "instance_type" {
 variable "key_name" {
   description = "my existing AWS Key Pair"
   type        = string
-  default     = "sisay-keypair"
+  default     = "my keypair"
 }
 
 variable "my_ip" {
   description = "my local IP for SSH access"
   type        = string
-default     = "771.191.131.44/32"
+default     = "My current ip/32"
 }
 
 variable "ami_id" {
