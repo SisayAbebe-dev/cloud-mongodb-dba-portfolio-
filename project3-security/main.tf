@@ -85,7 +85,7 @@ resource "aws_security_group" "mongo_sg" {
 
 resource "aws_instance" "mongo_nodes" {
   count         = 3
-  ami           = "ami-0b6c6ebed2801a5cb" # Ubuntu 22.04
+  ami           = "ami-0b6c6ebed2801a5cb" 
   instance_type = "t2.micro"
   key_name      = var.key_name
 
