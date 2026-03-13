@@ -16,7 +16,7 @@
   - MongoDB-Node-1 (PRIMARY)
   - MongoDB-Node-2 (SECONDARY)
   - MongoDB-Node-3 (SECONDARY)
-- **Keyfile Authentication** for internal MongoDB communication
+- **Security** Keyfile Authentication for inter-node or MongoDB communication and RBAC
 - **Automated installation** using user_data scripts
 
 ##  Project Structure
@@ -33,7 +33,7 @@
 
 ##  1 — Terraform Plan
 
-Before applying, I ran:
+Before applying, I ran a plan to preview the infrastructure changes and ensure all 9 resources were correctly defined.
 
 <img width="1809" height="1017" alt="Image" src="https://github.com/user-attachments/assets/c7c46bba-1a31-49fd-8842-6de590b7d442" />
 
@@ -56,7 +56,7 @@ Terraform created:
 
 ## 3 — EC2 Instances Running
 
-After deployment, all 3 MongoDB nodes appeared in the EC2 dashboard.
+Verified that all three MongoDB nodes were initialized and running successfully within the AWS EC2 dashboard.
 
 <img width="1845" height="865" alt="Image" src="https://github.com/user-attachments/assets/76cf218c-b4ff-4665-831d-748560d0cfd5" />
 
@@ -72,15 +72,20 @@ The public subnet (10.0.1.0/24) was created successfully.
 
 I connected to the primary node:
 
-ssh -i mykey.pem ubuntu@<my public-ip-node1>
+ssh -i mykey.pem ubuntu@< my public-ip-node1>
 
-# Then checked MongoDB:
+# Then 
 
-mongo rs.status()
+# Checking Status:
 
-At this stage, only Node 1 is PRIMARY.
+sudo systemctl status mongod
+**📸 Screenshot 
 
-**📸 Screenshot #5: rs.status() showing PRIMARY only**  
+
+# At this stage, only Node 1 is initialized as PRIMARY.
+# 5: rs.status()
+
+showing PRIMARY 
 *(insert screenshot here)*
 
 ---
