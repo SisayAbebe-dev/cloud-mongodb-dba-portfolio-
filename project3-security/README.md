@@ -58,14 +58,15 @@ Terraform created:
 
 Verified that all three MongoDB nodes were initialized and running successfully within the AWS EC2 dashboard.
 
-<img width="1845" height="865" alt="Image" src="https://github.com/user-attachments/assets/76cf218c-b4ff-4665-831d-748560d0cfd5" />
+<img width="1857" height="867" alt="image" src="https://github.com/user-attachments/assets/32ed40dd-806f-431e-9fa0-9ae6891453c2" />
 
 
 ##  4 — Subnet Verification
 
 The public subnet (10.0.1.0/24) was created successfully.
 
-<img width="1867" height="852" alt="Image" src="https://github.com/user-attachments/assets/1ee4523d-962b-4a53-ab6b-c43e4424a213" /> 
+<img width="1876" height="868" alt="image" src="https://github.com/user-attachments/assets/1abc1b48-af77-4ec3-98b9-a766fede574f" />
+
 
 
 ##  5 — SSH into Node 1
@@ -79,16 +80,17 @@ ssh -i mykey.pem ubuntu@< my public-ip-node1>
 # Checking Status:
 
 sudo systemctl status mongod
-**📸 Screenshot 
 
+<img width="1858" height="639" alt="image" src="https://github.com/user-attachments/assets/97eefd21-ae48-4099-bd76-89be70260f01" />
+Mongodb is running as well
 
 # At this stage, only Node 1 is initialized as PRIMARY.
 # 5: rs.status()
 
-showing PRIMARY 
-*(insert screenshot here)*
+showing PRIMARY
 
----
+<img width="1882" height="997" alt="image" src="https://github.com/user-attachments/assets/81301c70-8e94-4131-8c4c-86b8a38889a2" />
+
 
 ## I Added Node 2 and Node 3 to Replica Set From Node 1:
 
