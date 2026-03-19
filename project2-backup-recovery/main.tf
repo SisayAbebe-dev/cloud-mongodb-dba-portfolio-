@@ -114,7 +114,7 @@ resource "aws_security_group" "mongo_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["71.191.131.44/32"]
+    cidr_blocks = ["My current ip/32"]
   }
 
   ingress {
