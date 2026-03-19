@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Update system
@@ -17,16 +18,29 @@ https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" \
 apt update -y
 apt install -y mongodb-org
 
-# Enable and start MongoDB
-systemctl enable mongod
-systemctl start mongod
+# Create and configure the Keyfile securely injected by Terraform
+echo "${keyfile_content}" > /etc/mongo-keyfile
+chmod 400 /etc/mongo-keyfile
+chown mongodb:mongodb /etc/mongo-keyfile
 
-# Configure replica set
+# Configure MongoDB with Keyfile Auth enabled
 cat <<EOF > /etc/mongod.conf
+storage:
+  dbPath: /var/lib/mongodb
+systemLog:
+  destination: file
+  logAppend: true
+  path: /var/log/mongodb/mongod.log
+net:
+  port: 27017
+  bindIp: 0.0.0.0
 replication:
   replSetName: "rs0"
-net:
-  bindIp: 0.0.0.0
+security:
+  authorization: "enabled"
+  keyFile: /etc/mongo-keyfile
 EOF
 
+# Enable and start MongoDB
+systemctl enable mongod
 systemctl restart mongod
