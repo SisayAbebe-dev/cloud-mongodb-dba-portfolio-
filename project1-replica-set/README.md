@@ -75,8 +75,11 @@ Verified that all instances (Bastion and 3 MongoDB nodes) were initialized and r
 I verified the creation of the isolated private subnets to ensure the database is not exposed to the public internet then
 # And all nodes with their ips 
   bastion-public-ip 34.224.78.141 i used public ip to enter first into the private nodes to access them(server jumper)
+  
   node1-private-ip 10.0.10.60
+  
   node2-private-ip 10.0.11.32
+  
   node3-private-ip 10.0.12.52
 
 # SSH into Node 1
