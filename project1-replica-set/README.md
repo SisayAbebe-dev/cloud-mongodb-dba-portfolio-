@@ -144,7 +144,7 @@ rs.add("10.0.12.52:27017")
 
 I verified the cluster health to ensure the keyFile was allowing heartbeats between nodes, then performed a final data test.
 
-# Health Check:
+ Health Check:
 
 rs.status().members.map(m => ({name: m.name, state: m.stateStr, health: m.health}))
 
