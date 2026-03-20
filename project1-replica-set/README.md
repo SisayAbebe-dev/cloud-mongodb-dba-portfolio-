@@ -1,221 +1,166 @@
 README.md
 
   # Project 1 — MongoDB Replica Set on AWS (Terraform)
-# Overview
-This project deploys a 3‑node MongoDB Replica Set on AWS using Terraform.
-It demonstrates core DBA and cloud engineering skills:
-• 	VPC design (private + public subnets)
-• 	NAT gateway for secure outbound traffic
-• 	EC2 provisioning with Terraform
-• 	MongoDB installation via
-• 	Replica set configuration
-• 	Security groups and network isolation
-This is the foundation for all future projects in the portfolio.
+# This project deploys a secure 3‑node MongoDB replica set on AWS using Terraform.
 
-# Architecture
-# Components deployed:
-• 	VPC (10.0.0.0/16)
-• 	3 private subnets (one per AZ)
-• 	1 public subnet
-• 	Internet Gateway
-• 	NAT Gateway
-• 	Route tables (public + private)
-• 	3 EC2 instances (MongoDB nodes)
-• 	Security Group allowing:
-• 	SSH from your IP
-• 	MongoDB traffic inside the VPC
+Secure internal authentication, private network isolation, replica set configuration, and infrastructure-as-code.
 
-# Deployment Instructions
+# Architecture Overview
 
-1. Initialize Terraform
-     terraform init
+AWS VPC (10.0.0.0/16)
 
-2. Validate configuration
-     terraform validate
+Public Subnet (Bastion Host)
 
-3. Preview changes
-     terraform plan
+Private Subnets (Database Nodes)
 
-4.Deploy
-     terraform apply
+Security Group allowing:
 
+SSH from my home IP to Bastion Host
 
-# Replica Set Topology   
+SSH from Bastion to Private Nodes
 
-# rs0
-   MongoDB-Server-0 (us-east-1a)
-   MongoDB-Server-1 (us-east-1b)
-   MongoDB-Server-2 (us-east-1c)
+MongoDB internal traffic between nodes (Port 27017)
+
+4 EC2 Instances:
+
+Bastion Host (Jump Box)
+
+MongoDB-Node-1 (PRIMARY)
+
+MongoDB-Node-2 (SECONDARY)
+
+MongoDB-Node-3 (SECONDARY)
+
+@ Security: Keyfile Authentication for inter-node MongoDB communication and RBAC.
 
 # Project Structure
 
-project1-replica-set/
- 
-    main.tf](http://main.tf/)
-    [variables.tf](http://variables.tf/)
-    terraform.tfvars
-    outputs.tf](http://outputs.tf/)
-    user_data.sh
-    README.md](http://readme.md/)
+── main.tf 
+── variables.tf 
+── outputs.tf
+── terraform.tfvars
+── user_data.sh
+── README.md
 
-# How It Works
+# 1 — Terraform Plan
 
-# 1. Terraform provisions AWS infrastructure
-Running creates:
-  •	VPC + subnets
-  •	NAT gateway
-  •	EC2 instances
-  •	Security groups
-  •	Routing
-# 2. EC2 installs MongoDB automatically
-installs MongoDB 6.0 and configures:
+Before applying, I ran a plan to preview the infrastructure changes and ensure all resources (VPC, Subnets, Bastion, and DB Nodes) were correctly defined.
 
-replication:
-replSetName: "rs0"
-net:
-bindIp: 0.0.0.0
+<img width="1887" height="998" alt="image" src="https://github.com/user-attachments/assets/a0583263-82c0-43b1-827d-3575c21b62df" />
 
-# 3. You initialize the replica set manually
 
-    SSH into **MongoDB-Server-0**:
+# 2 — Terraform Apply
+# I deployed the full infrastructure:
+# Terraform created:
 
-  # We can login by saying  
-  mongo  (mongosh)  
+VPC
 
-# Then run:
+Public and Private Subnets
 
-rs.initiate({
-_id: "rs0",
-members: [
-{ _id: 0, host: "PRIVATE_IP_0:27017" },
-{ _id: 1, host: "PRIVATE_IP_1:27017" },
-{ _id: 2, host: "PRIVATE_IP_2:27017" } 
+Route tables & NAT Gateways
 
-    ]
+Security groups
+
+1 Bastion Host & 3 MongoDB EC2 instances
+
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/7b55c79c-eec0-4fd6-b97b-133f9aec991d" />
+
+# 3 — EC2 Instances Running
+Verified that all instances (Bastion and 3 MongoDB nodes) were initialized and running successfully within the AWS EC2 dashboard.
+
+<img width="1920" height="1072" alt="image" src="https://github.com/user-attachments/assets/70d49a39-de5f-487e-91f4-55c874acebd3" />
+
+
+# 4 — Subnet Verification
+I verified the creation of the isolated private subnets to ensure the database is not exposed to the public internet then
+# And all nodes with their ips 
+  bastion-public-ip 34.224.78.141 i used public ip to enter first into the private nodes to access them(server jumper)
+  node1-private-ip 10.0.10.60
+  node2-private-ip 10.0.11.32
+  node3-private-ip 10.0.12.52
+
+# 5 — SSH into Node 1
+I connected to the primary node securely via the Bastion Host:
+
+# Bash
+
+    ssh -A ubuntu@<bastion-public-ip>  Then to ssh ubuntu@<node1-private-ip> 
+
+<img width="1920" height="1021" alt="image" src="https://github.com/user-attachments/assets/ce0834d6-42ff-467d-9bcd-4014bf7ca19f" />
+
+
+# Checking Status:
+
+@ Bash
+
+sudo systemctl status mongod
+
+MongoDB is active and running on the primary node as well
+
+<img width="1920" height="1022" alt="image" src="https://github.com/user-attachments/assets/f4551e2d-57dd-4dbf-b43e-7ff75ae8ecb6" />
+
+# 6 — Admin User Creation
+Before enforcing security, I created the root admin. This ensures that a "Master Key" exists before the database is locked
+
+
+use admin
+db.createUser({ 
+  user: "sisay_admin", 
+  pwd: "sisay123456", 
+  roles: [ { role: "root", db: "admin" } ]
 })
 
-Note: i used Private IPs instead of localhost to allow cross-node communication within the VPC.
 
-# Then Check status:
+# 7 — Keyfile Generation & Security Enforcement
+I generated a 756-byte OpenSSL keyfile and distributed it to all three nodes. I then updated the mongod.conf YAML file on every node to enforce the security layer:
 
-rs.status()
-
-### The Replication Test
-
-If you haven't already, do a quick "sanity check" to ensure data is actually moving:
-
-- **On Node 1 (Primary):** `db.test.insert({ project: "Complete" })`
-- **On Node 2 (Secondary):** Run `db.getMongo().setReadPref("secondary")` and then `db.test.find()`.
-- If you see the document, your replication logic is 100% perfect.
-
-🔐 Security Notes
-
-- MongoDB is deployed in **private subnets** (not publicly accessible)
-- Only the IP can SSH into the bastion/instances
-- MongoDB traffic is restricted to the VPC CIDR
+YAML
+security:
+  authorization: enabled
+  keyFile: /var/lib/mongodb/security/mongodb-keyfile
+  
+# System Lockdown:
+I restarted the mongod service on all nodes. To verify the lock, I attempted to run a command without credentials, which correctly returned an Unauthorized error.
+<img width="1920" height="1027" alt="image" src="https://github.com/user-attachments/assets/b687107c-de23-4933-a9c2-706377452bd7" />
 
 
+#  — Authenticated Cluster 
 
-🧩 Overview
-This project deploys a 3‑node MongoDB Replica Set on AWS using Terraform.
-It demonstrates core DBA and cloud engineering skills:
-• 	VPC design (private + public subnets)
-• 	NAT gateway for secure outbound traffic
-• 	EC2 provisioning with Terraform
-• 	MongoDB installation via
-• 	Replica set configuration
-• 	Security groups and network isolation
-This is the foundation for all future projects in the portfolio.
+With the security active the nodes required an authenticated to form the replica set. I logged in using the admin credentials created:
 
-🏗️ Architecture
+# Bash
 
-Components deployed:
-• 	VPC (10.0.0.0/16)
-• 	3 private subnets (one per AZ)
-• 	1 public subnet
-• 	Internet Gateway
-• 	NAT Gateway
-• 	Route tables (public + private)
-• 	3 EC2 instances (MongoDB nodes)
-• 	Security Group allowing:
-• 	SSH from your IP
-• 	MongoDB traffic inside the VPC
+mongosh -u sisay_admin -p sisay123456--authenticationDatabase admin
 
-Replica Set Topology   
+# I added the secondary nodes to the cluster:
 
-rs0
-├── MongoDB-Server-0 (us-east-1a)
-├── MongoDB-Server-1 (us-east-1b)
-└── MongoDB-Server-2 (us-east-1c)
+rs.add("10.0.11.32:27017")
+rs.add("10.0.12.52:27017")
 
-📁 Project Structure
+#  — Health Verification
 
-project1-replica-set/
-│
-├── [main.tf](http://main.tf/)
-├── [variables.tf](http://variables.tf/)
-├── terraform.tfvars
-├── [outputs.tf](http://outputs.tf/)
-├── user_data.sh
-└── [README.md](http://readme.md/)
+I verified the cluster health to ensure the keyFile was allowing heartbeats between nodes, then performed a final data test.
 
-  How It Works
+# Health Check:
 
-1. Terraform provisions AWS infrastructure
-Running creates:
-•	VPC + subnets
-•	NAT gateway
-•	EC2 instances
-•	Security groups
-•	Routing
+rs.status().members.map(m => ({name: m.name, state: m.stateStr, health: m.health}))
 
-2. EC2 installs MongoDB automatically
-installs MongoDB 6.0 and configures:
 
-replication:
-replSetName: "rs0"
-net:
-bindIp: 0.0.0.0
+<img width="1920" height="1023" alt="image" src="https://github.com/user-attachments/assets/4ecb9524-3c1b-4e1e-a87a-2354e6571ebd" />
 
-3. You initialize the replica set manually
 
-SSH into **MongoDB-Server-0**:
+# Database Write Test:
 
-  ****We can login by saying  **mongo**  (mongosh)  
 
-Then run:
+db.test.insertOne({ "item": "portfolio", "status": "completed" })
 
-rs.initiate({
-_id: "rs0",
-members: [
-{ _id: 0, host: "PRIVATE_IP_0:27017" },
-{ _id: 1, host: "PRIVATE_IP_1:27017" },
-{ _id: 2, host: "PRIVATE_IP_2:27017" } 
+<img width="1920" height="1023" alt="image" src="https://github.com/user-attachments/assets/6150d3f7-b48f-4662-908b-96d8398546bb" />
 
-    ]
-})
 
-Then Check status:
-
-rs.status()
-
-🚀 Deployment Instructions
-
-1. Initialize Terraform
-terraform init
-2. Validate configuration
-terraform validate
-3. Preview changes
-
-       terraform plan
-
-  4.  Deploy
-       terraform apply
-
-🔐 Security Notes
+Notes
 
 - MongoDB is deployed in **private subnets** (not publicly accessible)
-- Only your IP can SSH into the bastion/instances
+- Only my IP can SSH into the bastion/ then to instances
 - MongoDB traffic is restricted to the VPC CIDR
 
 Integrated a dynamic S3 bucket naming strategy using random_id to ensure idempotent deployments and global uniqueness for backup storage
