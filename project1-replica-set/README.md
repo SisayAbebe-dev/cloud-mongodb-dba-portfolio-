@@ -21,7 +21,7 @@ SSH from Bastion to Private Nodes
 
 MongoDB internal traffic between nodes (Port 27017)
 
-4 EC2 Instances:
+# EC2 Instances:
 
 Bastion Host (Jump Box)
 
@@ -42,14 +42,14 @@ MongoDB-Node-3 (SECONDARY)
 ── user_data.sh
 ── README.md
 
-# 1 — Terraform Plan
+#  Terraform Plan
 
 Before applying, I ran a plan to preview the infrastructure changes and ensure all resources (VPC, Subnets, Bastion, and DB Nodes) were correctly defined.
 
 <img width="1887" height="998" alt="image" src="https://github.com/user-attachments/assets/a0583263-82c0-43b1-827d-3575c21b62df" />
 
 
-# 2 — Terraform Apply
+# Terraform Apply
 # I deployed the full infrastructure:
 # Terraform created:
 
@@ -65,13 +65,13 @@ Security groups
 
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/7b55c79c-eec0-4fd6-b97b-133f9aec991d" />
 
-# 3 — EC2 Instances Running
+#  EC2 Instances Running
 Verified that all instances (Bastion and 3 MongoDB nodes) were initialized and running successfully within the AWS EC2 dashboard.
 
 <img width="1920" height="1072" alt="image" src="https://github.com/user-attachments/assets/70d49a39-de5f-487e-91f4-55c874acebd3" />
 
 
-# 4 — Subnet Verification
+#  Subnet Verification
 I verified the creation of the isolated private subnets to ensure the database is not exposed to the public internet then
 # And all nodes with their ips 
   bastion-public-ip 34.224.78.141 i used public ip to enter first into the private nodes to access them(server jumper)
@@ -79,7 +79,7 @@ I verified the creation of the isolated private subnets to ensure the database i
   node2-private-ip 10.0.11.32
   node3-private-ip 10.0.12.52
 
-# 5 — SSH into Node 1
+# SSH into Node 1
 I connected to the primary node securely via the Bastion Host:
 
 # Bash
@@ -99,7 +99,7 @@ MongoDB is active and running on the primary node as well
 
 <img width="1920" height="1022" alt="image" src="https://github.com/user-attachments/assets/f4551e2d-57dd-4dbf-b43e-7ff75ae8ecb6" />
 
-# 6 — Admin User Creation
+#  Admin User Creation
 Before enforcing security, I created the root admin. This ensures that a "Master Key" exists before the database is locked
 
 
@@ -111,7 +111,7 @@ db.createUser({
 })
 
 
-# 7 — Keyfile Generation & Security Enforcement
+#  Keyfile Generation & Security Enforcement
 I generated a 756-byte OpenSSL keyfile and distributed it to all three nodes. I then updated the mongod.conf YAML file on every node to enforce the security layer:
 
 YAML
