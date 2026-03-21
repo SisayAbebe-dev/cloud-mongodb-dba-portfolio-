@@ -118,6 +118,17 @@ rs.status()
 
 <img width="1881" height="946" alt="image" src="https://github.com/user-attachments/assets/484fa2d6-435e-4f84-be34-263b5afe3b98" />
 
+Summary for Security & Hardening Project:
+
+To align with AWS security best practices, I implemented a Zero-Trust Network Architecture by restricting all public database access. I configured Security Groups to allow SSH traffic exclusively from my authorized home IP address and limited MongoDB internal communication to the cluster's private network. This ensures the database is shielded from the public internet, significantly reducing the attack surface.
+
+# Key Security Implementations:
+~ IP Whitelisting: Configured the AWS Security Group to only accept incoming connections from my specific workstation IP, preventing unauthorized global scans.
+
+~ Internal Cluster Authentication: Generated and distributed a 756-byte cryptographically secure keyfile across all nodes. This ensures that only authorized instances can join the replica set or communicate via heartbeats.
+
+~ Role-Based Access Control (RBAC): Enforced security.authorization: enabled in the mongod.conf, requiring a root administrative login for any database operations.
+
 
 
 
