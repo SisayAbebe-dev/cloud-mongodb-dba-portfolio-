@@ -118,7 +118,8 @@ rs.status()
 
 <img width="1881" height="946" alt="image" src="https://github.com/user-attachments/assets/484fa2d6-435e-4f84-be34-263b5afe3b98" />
 
-Summary for Security & Hardening Project:
+
+# Summary for Security & Hardening Project:
 
 To align with AWS security best practices, I implemented a Zero-Trust Network Architecture by restricting all public database access. I configured Security Groups to allow SSH traffic exclusively from my authorized home IP address and limited MongoDB internal communication to the cluster's private network. This ensures the database is shielded from the public internet, significantly reducing the attack surface.
 
