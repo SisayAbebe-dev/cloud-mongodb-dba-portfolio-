@@ -160,9 +160,10 @@ db.test.insertOne({ "item": "portfolio", "status": "completed" })
 <img width="1920" height="1023" alt="image" src="https://github.com/user-attachments/assets/6150d3f7-b48f-4662-908b-96d8398546bb" />
 
 
-Notes
+# Notes
 
 - MongoDB is deployed in **private subnets** (not publicly accessible)
+  To align with AWS security best practices, I moved the database tier to Private Subnets, removing all public entry points. I implemented a Bastion Host architecture and utilized SSH Agent Forwarding to manage the nodes. This ensures that the database is never directly exposed to the internet, significantly reducing the attack surface
 - Only my IP can SSH into the bastion/ then to instances
 - MongoDB traffic is restricted to the VPC CIDR
 
