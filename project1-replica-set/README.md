@@ -1,6 +1,6 @@
 README.md
 
-  # Project 1 — MongoDB Replica Set on AWS (Terraform)
+  #  — MongoDB Replica Set on AWS (Terraform)
 # This project deploys a secure 3‑node MongoDB replica set on AWS using Terraform.
 
 Secure internal authentication, private network isolation, replica set configuration, and infrastructure-as-code.
