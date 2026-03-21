@@ -31,14 +31,14 @@
 ── user_data_node3.sh 
 ── README.md
 
-##  1 — Terraform Plan
+##   — Terraform Plan
 
 Before applying, I ran a plan to preview the infrastructure changes and ensure all 9 resources were correctly defined.
 
 <img width="1808" height="949" alt="image" src="https://github.com/user-attachments/assets/29326c64-6439-420e-95fb-88efd180fca2" />
 
 
-## 2 — Terraform Apply
+##  — Terraform Apply
 
 I deployed the full infrastructure:
 
@@ -55,14 +55,14 @@ Terraform created:
 <img width="1886" height="995" alt="image" src="https://github.com/user-attachments/assets/3b1fe57a-ad76-482d-a6e2-bed3181121e7" />
 
 
-## 3 — EC2 Instances Running
+##  — EC2 Instances Running
 
 Verified that all three MongoDB nodes were initialized and running successfully within the AWS EC2 dashboard.
 
 <img width="1857" height="867" alt="image" src="https://github.com/user-attachments/assets/32ed40dd-806f-431e-9fa0-9ae6891453c2" />
 
 
-##  4 — Subnet Verification
+##  — Subnet Verification
 
 The public subnet (10.0.1.0/24) was created successfully.
 
@@ -70,7 +70,7 @@ The public subnet (10.0.1.0/24) was created successfully.
 
 
 
-##  5 — SSH into Node 1
+##   — SSH into Node 1
 
 I connected to the primary node:
 
@@ -86,7 +86,7 @@ sudo systemctl status mongod
 Mongodb is running as well
 
 # At this stage, only Node 1 is initialized as PRIMARY.
-# 5: rs.status()
+# : rs.status()
 
 showing PRIMARY
 
