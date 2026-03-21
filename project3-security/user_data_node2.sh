@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Update system
+# i Updated system
 apt-get update -y
 
-# Install MongoDB
+# i Installed MongoDB
 apt-get install -y gnupg curl
 
 curl -fsSL https://pgp.mongodb.com/server-6.0.asc | \
@@ -17,13 +17,13 @@ echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg ] \
 apt-get update -y
 apt-get install -y mongodb-org
 
-# Create keyfile directory
+# i Created keyfile directory
 mkdir -p /etc/mongo
 echo "MySecretClusterKey123" > /etc/mongo/keyfile
 chmod 600 /etc/mongo/keyfile
 chown mongodb:mongodb /etc/mongo/keyfile
 
-# Configure mongod
+# i Configured mongod
 cat <<EOF >/etc/mongod.conf
 storage:
   dbPath: /var/lib/mongodb
